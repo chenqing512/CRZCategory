@@ -6,7 +6,7 @@
 //  Copyright © 2017年 ChenQing. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @interface UIColor (CRZCategory)
 
