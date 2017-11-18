@@ -1,4 +1,8 @@
 # CRZCategory
+# 使用方式
+pod 'CRZCategory','~0.0.1'
+
+
 通过runtime动态修复bug
 
 防止数组越界闪退
