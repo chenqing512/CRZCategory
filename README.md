@@ -1,6 +1,6 @@
 # CRZCategory
 # 使用方式
-pod 'CRZCategory','~0.0.3'
+pod 'CRZXYCategory','~0.0.3'
 
 # 说明
 
