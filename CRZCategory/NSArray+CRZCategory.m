@@ -22,6 +22,22 @@
         Method oldMutableObjectAtIndex = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(objectAtIndex:));
         Method newMutableObjectAtIndex =  class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(mutableObjectAtIndex:));
         method_exchangeImplementations(oldMutableObjectAtIndex, newMutableObjectAtIndex);
+        
+        
+        Method sourceMethod2 = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(removeObjectAtIndex:));
+        Method destMethod2 = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(safeRemoveObjectAtIndex:));
+        
+        method_exchangeImplementations(sourceMethod2, destMethod2);
+        
+        Method sourceMethod3 = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(insertObject:atIndex:));
+        Method destMethod3 = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(safeInsertObject:atIndex:));
+        
+        method_exchangeImplementations(sourceMethod3, destMethod3);
+        
+        Method sourceMethod4 = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(replaceObjectAtIndex:withObject:));
+        Method destMethod4 = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(safeReplaceObjectAtIndex:withObject:));
+        
+        method_exchangeImplementations(sourceMethod4, destMethod4);
     });
 }
 
@@ -57,6 +73,44 @@
     else{
         return [self mutableObjectAtIndex:index];
     }
+}
+
+-(void)safeRemoveObjectAtIndex:(NSInteger)index
+{
+    if (self.count <= index) {
+        NSLog(@"Runtime Warning:index %li out of bound",index);
+        return;
+    }
+    
+    [self safeRemoveObjectAtIndex:index];
+}
+-(void)safeInsertObject:(id)object atIndex:(NSInteger)index
+{
+    if (!object) {
+        NSLog(@"Runtime Warning:insert object can not be nil");
+        return;
+    }
+    
+    if (self.count < index) {
+        NSLog(@"Runtime Warning:insert object at index %li out of bound",index);
+        return;
+    }
+    
+    [self safeInsertObject:object atIndex:index];
+}
+-(void)safeReplaceObjectAtIndex:(NSInteger)index withObject:(id)object
+{
+    if (index >= self.count) {
+        NSLog(@"Runtime Warning:index %li out of bound",index);
+        return;
+    }
+    
+    if (!object) {
+        NSLog(@"Runtime Warning:object can not be empty");
+        return;
+    }
+    
+    [self safeReplaceObjectAtIndex:index withObject:object];
 }
 
 @end
