@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CRZXYCategory"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "A short description of CRZXYCategory."
 
   # This description is used to generate tags and improve search results.
@@ -117,8 +117,8 @@ Pod::Spec.new do |s|
   #  the lib prefix of their name.
   #
 
-  # s.framework  = "SomeFramework"
-  # s.frameworks = "SomeFramework", "AnotherFramework"
+  # s.framework  = "UIKit"
+  # s.frameworks = "UIKit"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"
