@@ -18,10 +18,22 @@
         Method oldObjectAtIndex = class_getInstanceMethod(objc_getClass("__NSArrayI"), @selector(objectAtIndex:));
         Method newObjectAtIndex = class_getInstanceMethod(objc_getClass("__NSArrayI"), @selector(__nickyTsui__objectAtIndex:));
         method_exchangeImplementations(oldObjectAtIndex, newObjectAtIndex);
+        
+        
+        Method oldObjectAtIndexSubscript = class_getInstanceMethod(objc_getClass("__NSArrayI"), @selector(objectAtIndexedSubscript:));
+        Method newObjectAtIndexSubscript = class_getInstanceMethod(objc_getClass("__NSArrayI"), @selector(__nickyTsui__objectAtIndex:));
+        method_exchangeImplementations(oldObjectAtIndexSubscript, newObjectAtIndexSubscript);
+        
+        
+        
         //替换可变数组中的方法
         Method oldMutableObjectAtIndex = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(objectAtIndex:));
         Method newMutableObjectAtIndex =  class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(mutableObjectAtIndex:));
         method_exchangeImplementations(oldMutableObjectAtIndex, newMutableObjectAtIndex);
+        
+        Method oldMutableObjectAtIndexSubscript = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(objectAtIndexedSubscript:));
+        Method newMutableObjectAtIndexSubscript = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(mutableObjectAtIndex:));
+        method_exchangeImplementations(oldMutableObjectAtIndexSubscript, newMutableObjectAtIndexSubscript);
         
         
         Method sourceMethod2 = class_getInstanceMethod(objc_getClass("__NSArrayM"), @selector(removeObjectAtIndex:));
